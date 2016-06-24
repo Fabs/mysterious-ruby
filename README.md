@@ -1,9 +1,22 @@
+## Development
+
+You can run guard for `rspec` and `rubocop linting`. 
+```
+$ guard
+```
+
 ## Decision Notes
 A brief explanation for the decisions on this project.
 
+- Rails 4.2.6, ruby 2.3.1: We are using the stable versions of ruby and 
+rails. It would be nice to use rails 5.0, specially for `--api` in order
+to simplify the setup and remove `sprockets` and other unused middleware
+but we stick to the stable, and removed it manually when needed.
+
+
 ## TODO
-- [] Setup Rails App on Github (+postgres)
-- [] Setup Rspec
+- [x] Setup Rails App on Github (+postgres)
+- [x] Setup Rspec
 
 - [] It must be API (REST, JSON).
 - [] It must be secured by basic auth.
