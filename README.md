@@ -35,4 +35,8 @@ but we stick to the stable, and removed it manually when needed.
 - [ ] Frontend
 - [ ] Deploy Heroku
 
+## Notes
+- Explain feature branches
+- Should I test action controller api (classes test)
+- Take a look on which middlewares should stay
 
