@@ -20,7 +20,7 @@ but we stick to the stable, and removed it manually when needed.
 - [x] Setup Rails App on Github (+postgres)
 - [x] Setup Rspec
 
-- [ ] It must be API (REST, JSON).
+- [x] It must be API (REST, JSON).
 - [x] It must be secured by basic auth.
 - [ ] It must contain User mode - with different roles (admin, user, guest).
 - [ ] It must limit access to given part of API depending on User role.

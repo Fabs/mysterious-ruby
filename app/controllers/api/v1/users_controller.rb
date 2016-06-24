@@ -7,7 +7,9 @@ module Api
       param :user, Hash, 'The user signup information', required: true do
         param :username, String, 'Must be unique', required: true
         param :password, String, 'Must have 8 to 72 characters', required: true
-        param :password_confirmation, String, 'Must match the password field', required: true     end
+        param :password_confirmation, String,
+              'Must match the password field', required: true
+      end
       def sign_up
         @user = User.new(sign_up_parameters)
         if @user.save
