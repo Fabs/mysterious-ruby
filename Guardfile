@@ -1,4 +1,4 @@
-group :red_green_refactor, halt_on_fail: true do
+group :tdd, halt_on_fail: true do
   guard :rspec, cmd: 'bundle exec rspec' do
     watch('spec/spec_helper.rb')                        { 'spec' }
     watch('config/routes.rb')                           { 'spec/routing' }
