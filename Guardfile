@@ -13,8 +13,8 @@ group :tdd, halt_on_fail: true do
     end
   end
 
-  # guard :rubocop, cli: ['--config','rubocop.yml'] do
-  #   watch(%r{.+\.rb$})
-  #   watch(%r{(?:.+/)?\.rubocop\.yml$}) { |m| File.dirname(m[0]) }
-  # end
+  guard :rubocop, cli: ['--config','rubocop.yml'] do
+    watch(%r{.+\.rb$})
+    watch(%r{(?:.+/)?\.rubocop\.yml$}) { |m| File.dirname(m[0]) }
+  end
 end
