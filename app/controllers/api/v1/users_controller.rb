@@ -4,7 +4,8 @@ module Api
       respond_to :json
 
       api :POST, '/v1/users/sign_up', 'Signs up an User by creating it.'
-      param :user, Hash, 'The user signup information', required: true do
+      api_version '1'
+      param :user, Hash, 'The user sign up information', required: true do
         param :username, String, 'Must be unique', required: true
         param :password, String, 'Must have 8 to 72 characters', required: true
         param :password_confirmation, String,

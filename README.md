@@ -22,7 +22,7 @@ but we stick to the stable, and removed it manually when needed.
 
 - [x] It must be API (REST, JSON).
 - [x] It must be secured by basic auth.
-- [ ] It must contain User mode - with different roles (admin, user, guest).
+- [ ] It must contain User model with different roles (admin, user, guest).
 - [ ] It must limit access to given part of API depending on User role.
 - [ ] Admin has access to everything.
 - [ ] User can read all, create all, but update and deleted only his records.

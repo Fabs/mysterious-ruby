@@ -184,6 +184,8 @@ GEM
       json (~> 1.7, >= 1.7.7)
       rdoc (~> 4.0)
     shellany (0.0.1)
+    shoulda-matchers (3.1.1)
+      activesupport (>= 4.0.0)
     slop (3.6.0)
     spring (1.7.1)
     sprockets (3.6.2)
@@ -198,6 +200,8 @@ GEM
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
     unicode-display_width (1.0.5)
+    warden (1.2.6)
+      rack (>= 1.0)
     web-console (2.3.0)
       activemodel (>= 4.0)
       binding_of_caller (>= 0.7.2)
@@ -224,7 +228,9 @@ DEPENDENCIES
   rspec-rails (~> 3.4)
   rubocop
   sdoc (~> 0.4.0)
+  shoulda-matchers (~> 3.1)
   spring
+  warden
   web-console (~> 2.0)
 
 RUBY VERSION

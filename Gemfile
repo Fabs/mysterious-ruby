@@ -14,10 +14,12 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'rails-api'
 gem 'responders'
 gem 'apipie-rails'
+gem 'warden'
 
 group :development, :test do
   gem 'rspec-rails', '~> 3.4'
   gem 'factory_girl_rails'
+  gem 'shoulda-matchers', '~> 3.1'
 
   gem 'rubocop', require: false
 
