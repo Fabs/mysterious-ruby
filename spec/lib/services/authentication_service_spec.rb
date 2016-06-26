@@ -20,8 +20,8 @@ RSpec.describe AuthenticationService do
         @user_mock.should_receive(:find_by) do |options|
           expect(options[:username]).to eq(@user.username)
           user = double(@user)
-          user.should_receive(:authenticate) { true }
-          user.should_receive(:id) { @user.id }
+          allow(user).to receive(:authenticate).and_return(true)
+          allow(user).to receive(:id).and_return(@user.id)
           user
         end
 

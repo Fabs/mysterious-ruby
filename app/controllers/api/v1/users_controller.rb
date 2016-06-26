@@ -1,7 +1,6 @@
 module Api
   module V1
     class UsersController < Api::ApiController
-      prepend_before_filter :skip_authentication
       respond_to :json
 
       api :POST, '/v1/users/sign_up', 'Signs up an User by creating it.'

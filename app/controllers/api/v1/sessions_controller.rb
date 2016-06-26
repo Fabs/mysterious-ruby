@@ -1,7 +1,6 @@
 module Api
   module V1
     class SessionsController < Api::ApiController
-      prepend_before_filter :skip_authentication
       before_filter :auth_service
       respond_to :json
 
@@ -18,6 +17,7 @@ module Api
       def sign_in
         @session = @auth.authenticate(sign_in_params)
         if @session && @session.valid?
+          @role = current_role
           respond_with(@session, status: :created)
         else
           render json: @auth.errors, status: :not_found
@@ -42,7 +42,7 @@ module Api
       api :POST, '/v1/sessions/status', 'Gets the session status'
       api_version '1'
       def status
-        render json: { status: 'OK', role: role }
+        render json: { status: 'OK', role: current_role }
       end
 
       private

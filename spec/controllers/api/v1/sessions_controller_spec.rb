@@ -3,8 +3,9 @@ require 'rails_helper'
 RSpec.describe Api::V1::SessionsController, type: :controller do
   before(:each) do
     allow(request.env['warden']).to receive(:authenticate!)
-
-    Api::ApiController.any_instance.stub(:role).and_return(:guest)
+    allow(request.env['warden']).to receive(:user).with(:guest).and_return({})
+    allow(request.env['warden']).to receive(:user).with(:user).and_return(nil)
+    allow(request.env['warden']).to receive(:user).with(:admin).and_return(nil)
   end
 
   describe 'POST #sign_in' do

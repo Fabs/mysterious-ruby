@@ -1,7 +1,11 @@
 require 'rails_helper'
 
-RSpec.describe Api::V1::AuthenticationHelper do
-  include Api::V1::AuthenticationHelper
+RSpec.describe AuthenticationConcern do
+  before do
+    class TestController < Api::ApiController
+      include AuthenticationConcern
+    end
+  end
 
   describe 'without user' do
     before(:each) do
@@ -10,11 +14,12 @@ RSpec.describe Api::V1::AuthenticationHelper do
       allow(warden).to receive(:user).with(:user).and_return(nil)
       allow(warden).to receive(:user).with(:admin).and_return(nil)
 
-      allow(self).to receive(:warden).and_return(warden)
+      @test_controller = TestController.new
+      allow(@test_controller).to receive(:warden).and_return(warden)
     end
 
-    it { expect(current_user).to eq(nil) }
-    it { expect(current_role).to eq(:guest) }
+    it { expect(@test_controller.current_user).to eq(nil) }
+    it { expect(@test_controller.current_role).to eq(:guest) }
   end
 
   describe 'with user' do
@@ -25,11 +30,12 @@ RSpec.describe Api::V1::AuthenticationHelper do
       allow(warden).to receive(:user).with(:user).and_return(user)
       allow(warden).to receive(:user).with(:admin).and_return(nil)
 
-      allow(self).to receive(:warden).and_return(warden)
+      @test_controller = TestController.new
+      allow(@test_controller).to receive(:warden).and_return(warden)
     end
 
-    it { expect(current_user).to eq(user) }
-    it { expect(current_role).to eq(:user) }
+    it { expect(@test_controller.current_user).to eq(user) }
+    it { expect(@test_controller.current_role).to eq(:user) }
   end
 
   describe 'with admin' do
@@ -40,11 +46,12 @@ RSpec.describe Api::V1::AuthenticationHelper do
       allow(warden).to receive(:user).with(:user).and_return(user)
       allow(warden).to receive(:user).with(:admin).and_return(user)
 
-      allow(self).to receive(:warden).and_return(warden)
+      @test_controller = TestController.new
+      allow(@test_controller).to receive(:warden).and_return(warden)
     end
 
-    it { expect(current_user).to eq(user) }
-    it { expect(current_role).to eq(:admin) }
+    it { expect(@test_controller.current_user).to eq(user) }
+    it { expect(@test_controller.current_role).to eq(:admin) }
   end
 
   describe 'without warden values' do
@@ -53,10 +60,11 @@ RSpec.describe Api::V1::AuthenticationHelper do
       warden = double
       allow(warden).to receive(:user).and_return(nil)
 
-      allow(self).to receive(:warden).and_return(warden)
+      @test_controller = TestController.new
+      allow(@test_controller).to receive(:warden).and_return(warden)
     end
 
-    it { expect(current_user).to eq(nil) }
-    it { expect(current_role).to eq(nil) }
+    it { expect(@test_controller.current_user).to eq(nil) }
+    it { expect(@test_controller.current_role).to eq(nil) }
   end
 end
