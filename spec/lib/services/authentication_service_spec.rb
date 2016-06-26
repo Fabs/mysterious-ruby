@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe AuthenticationService do
+  # TODO: Refactor to use let
   before(:each) do
     @user = create(:user)
     @user_credentials = { 'username' => @user.username,

@@ -1,6 +1,12 @@
 require 'rails_helper'
 
 RSpec.describe Api::V1::SessionsController, type: :controller do
+  before(:each) do
+    allow(request.env['warden']).to receive(:authenticate!)
+
+    Api::ApiController.any_instance.stub(:role).and_return(:guest)
+  end
+
   describe 'POST #sign_in' do
     let(:user_credentials) do
       user = create(:user)
@@ -34,6 +40,8 @@ RSpec.describe Api::V1::SessionsController, type: :controller do
         expect(result['session']['user_id']).to be_present
         expect(result['session']['role']).to be_present
       end
+
+      it 'returns the correct role'
     end
 
     context 'with invalid attributes' do
@@ -99,6 +107,8 @@ RSpec.describe Api::V1::SessionsController, type: :controller do
     context 'with valid attributes' do
       render_views
 
+      it { expect(response).to have_http_status(:ok) }
+
       it 'renders the server info' do
         get(:status, format: 'json')
 
@@ -108,7 +118,69 @@ RSpec.describe Api::V1::SessionsController, type: :controller do
       end
     end
 
-    context 'with invalid attributes' do
+    # TODO: A god place to remove duplication with custom matchers
+    # TODO: This also looks more like integration
+    context 'with valid user token' do
+      render_views
+
+      let(:session) { create(:session) }
+
+      it { expect(response).to have_http_status(:ok) }
+
+      it 'renders the server info for user' do
+        pending
+        request.headers['X-User-Token'] = session.token
+        request.headers['X-User-Id'] = session.user_id
+        get(:status, format: 'json')
+
+        result = JSON.parse(response.body)
+        expect(result['status']).to eq('OK')
+        expect(result['role']).to eq('user')
+      end
+    end
+
+    context 'with valid user token for admin' do
+      render_views
+
+      let(:session) { create(:session, user: create(user, admin: true)) }
+
+      it { expect(response).to have_http_status(:ok) }
+
+      it 'renders the server info for admin' do
+        pending
+        request.headers['X-User-Token'] = session.token
+        request.headers['X-User-Id'] = session.user_id
+        get(:status, format: 'json')
+
+        result = JSON.parse(response.body)
+        expect(result['status']).to eq('OK')
+        expect(result['role']).to eq('admin')
+      end
+    end
+
+    context 'with invalid user token' do
+      render_views
+
+      let(:session) do
+        create(:session, user: create(user, admin: true))
+        OpenStruct.new(token: 'invalid_token', user_id: 1)
+      end
+
+      it do
+        pending
+        expect(response).to(have_http_status(:not_found))
+      end
+
+      it 'renders the server info' do
+        pending
+        request.headers['X-User-Token'] = ''
+        request.headers['X-User-Id'] = ''
+        get(:status, format: 'json')
+
+        result = JSON.parse(response.body)
+        expect(result['status']).to eq('OK')
+        expect(result['role']).to eq('forbidden')
+      end
     end
   end
 end

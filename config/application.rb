@@ -28,6 +28,13 @@ module Api
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true
 
+    #Add Warden middleware
+    config.middleware.insert_after ActionDispatch::ParamsParser,
+                                   Warden::Manager do |manager|
+      manager.default_strategies :token_auth
+      manager.failure_app = Api::V1::UnauthorizedController
+    end
+
     config.generators do |g|
       g.test_framework :rspec,
         fixtures: true,

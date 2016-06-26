@@ -1,6 +1,7 @@
 module Api
   module V1
     class SessionsController < Api::ApiController
+      prepend_before_filter :skip_authentication
       before_filter :auth_service
       respond_to :json
 
@@ -41,7 +42,7 @@ module Api
       api :POST, '/v1/sessions/status', 'Gets the session status'
       api_version '1'
       def status
-        render json: { status: 'OK', role: :guest }
+        render json: { status: 'OK', role: role }
       end
 
       private

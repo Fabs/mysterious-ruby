@@ -25,6 +25,10 @@ allows to check for a token you already have, and also check your level
 of access ('guest', 'user', 'admin'). In a real world scenario it could
 also be used to check the server status, hence it is the root path.
 
+- Session and User for auth:
+
+- Comments on specs:  
+
 ## TODO
 - [x] Setup Rails App on Github (+postgres)
 - [x] Setup Rspec

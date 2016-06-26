@@ -1,6 +1,12 @@
 require 'rails_helper'
 
 RSpec.describe Api::V1::UsersController, type: :controller do
+  before(:each) do
+    allow(request.env['warden']).to receive(:authenticate!)
+
+    Api::ApiController.any_instance.stub(:role).and_return(:guest)
+  end
+
   describe 'POST #sign_up' do
     context 'with valid attributes' do
       let(:user) do
