@@ -9,6 +9,18 @@ RSpec.describe TokenAuthStrategy do
     { 'HTTP_X_USER_TOKEN' => 'invalid_token', 'HTTP_X_USER_ID' => '1' }
   end
 
+  let(:empty_token) do
+    {}
+  end
+
+  let(:missing_user) do
+    { 'HTTP_X_USER_TOKEN' => 'token' }
+  end
+
+  let(:missing_token) do
+    { 'HTTP_X_USER_ID' => '1' }
+  end
+
   let(:user) { build(:user) }
   let(:admin) { build(:user, admin: true) }
 
@@ -74,5 +86,10 @@ RSpec.describe TokenAuthStrategy do
   end
 
   describe '.valid?' do
+    it { expect(described_class.new(valid_token)).to be_valid}
+
+    it { expect(described_class.new(empty_token)).not_to be_valid}
+    it { expect(described_class.new(missing_token)).not_to be_valid}
+    it { expect(described_class.new(missing_user)).not_to be_valid}
   end
 end
