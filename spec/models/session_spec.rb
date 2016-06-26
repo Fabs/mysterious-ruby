@@ -7,5 +7,7 @@ RSpec.describe Session, type: :model do
 
     it { expect(build(:session)).to be_valid }
     it { expect(create(:session)).to be_persisted }
+
+    it { is_expected.to belong_to(:user) }
   end
 end

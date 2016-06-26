@@ -39,15 +39,14 @@ also be used to check the server status, hence it is the root path.
 - [x] It must be secured by basic auth.
 - [x] It must contain User model with different roles (admin, user, guest).
 - [x] It must limit access to given part of API depending on User role.
-    - [ ] Guest has only read access.
-    - [ ] Admin has access to everything.
-    - [ ] User can read all, create all, but update and deleted only his records.
+    - [x] Guest has only read access.
+    - [x] Admin has access to everything.
+    - [x] User can read all, create all, but update and deleted only his records.
 - [ ] There should be at least 2 different models except User.
     - [ ] Those models should be in relation (1 to many).
 - [ ] Seeds file with at least one record of sample data for each model.
 
 ## Extra
-- [ ] Frontend
 - [ ] Deploy Heroku
 
 ## Notes

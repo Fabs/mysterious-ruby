@@ -11,6 +11,10 @@ Rails.application.routes.draw do
         delete 'sign_off'
         get 'status'
       end
+
+      resources :images, except: [:new, :edit] do
+        resources :scores, except: [:new, :edit, :delete]
+      end
     end
   end
 
