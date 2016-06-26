@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe AuthenticationConcern do
-  before do
+  before(:all) do
     class TestController < Api::ApiController
       include AuthenticationConcern
     end
