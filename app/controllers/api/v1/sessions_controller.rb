@@ -23,7 +23,7 @@ module Api
         end
       end
 
-      api :POST, '/v1/users/sign_in', 'Signs off the User\'s Session.'
+      api :POST, '/v1/users/sign_off', 'Signs off the User\'s Session.'
       api_version '1'
       param :session, Hash, 'The Session to be signed off', required: true do
         param :token, String, 'Must be the valid user token from sign_in',
@@ -32,6 +32,10 @@ module Api
                                  that holds the token', required: true
       end
       def sign_off
+        has_logged_out = @auth.sign_off(sign_off_params)
+        status = has_logged_out ? :ok : :not_found
+
+        render json: @auth.errors, status: status
       end
 
       private
@@ -42,6 +46,10 @@ module Api
 
       def sign_in_params
         params.require(:user).permit(:username, :password)
+      end
+
+      def sign_off_params
+        params.require(:session).permit(:user_id, :token)
       end
     end
   end

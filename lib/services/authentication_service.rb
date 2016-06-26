@@ -1,4 +1,6 @@
 class AuthenticationService
+  attr_reader :session
+
   def initialize(user_store, session_store, generator)
     @user_store = user_store
     @session_store = session_store
@@ -16,18 +18,18 @@ class AuthenticationService
     @session.destroy if @session
   end
 
-  # TODO: Add Spec
+  # TODO: Add Spec later, when we decided how to show errors
   def errors
-    @custom_errors.merge!(user: @user.errors.messages ) if @user
-    @custom_errors.merge!(session: @session.errors.messages) if @session
+    errors = @custom_errors
+    errors = errors.merge(user: @user.errors.messages) if @user
+    errors = errors.merge(session: @session.errors.messages) if @session
 
-    @custom_errors
+    errors
   end
 
   private
 
   def fetch_user(credentials)
-    puts credentials
     user = @user_store.find_by(username: credentials['username'])
     if !user || !user.try(:authenticate, credentials['password'])
       @custom_errors[:auth] = 'Username and Password combination do not match'

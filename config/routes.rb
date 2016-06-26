@@ -7,7 +7,7 @@ Rails.application.routes.draw do
       end
       namespace :sessions do
         post 'sign_in'
-        post 'sign_off'
+        delete 'sign_off'
       end
     end
   end

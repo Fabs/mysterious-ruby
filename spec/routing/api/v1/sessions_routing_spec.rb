@@ -11,7 +11,7 @@ RSpec.describe Api::V1::SessionsController, type: :routing do
     it 'routes to #sign_off' do
       path = 'v1/sessions/sign_off'
       handler = 'api/v1/sessions#sign_off'
-      expect(post: path, format: 'json').to route_to(handler)
+      expect(delete: path, format: 'json').to route_to(handler)
     end
   end
 end

@@ -24,11 +24,11 @@ but we stick to the stable, and removed it manually when needed.
 - [x] It must be secured by basic auth.
 - [ ] It must contain User model with different roles (admin, user, guest).
 - [ ] It must limit access to given part of API depending on User role.
-- [ ] Admin has access to everything.
-- [ ] User can read all, create all, but update and deleted only his records.
-- [ ] Guest has only read access.
+    - [ ] Admin has access to everything.
+    - [ ] User can read all, create all, but update and deleted only his records.
+    - [ ] Guest has only read access.
 - [ ] There should be at least 2 different models except User.
-- [ ] Those models should be in relation (1 to many).
+    - [ ] Those models should be in relation (1 to many).
 - [ ] Seeds file with at least one record of sample data for each model.
 
 ## Extra
