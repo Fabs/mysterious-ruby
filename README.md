@@ -20,6 +20,11 @@ from scratch myself, (2) to learn how to do it. On a real application
 the pros and cons of adding a gem vs building from scratch should be 
 weighted, most certainly,  according to different criteria. 
 
+- session#status: It was not on the problem specification but this 
+allows to check for a token you already have, and also check your level
+of access ('guest', 'user', 'admin'). In a real world scenario it could
+also be used to check the server status, hence it is the root path.
+
 ## TODO
 - [x] Setup Rails App on Github (+postgres)
 - [x] Setup Rspec

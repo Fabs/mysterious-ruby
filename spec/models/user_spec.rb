@@ -2,7 +2,6 @@ require 'rails_helper'
 
 RSpec.describe User, type: :model do
   describe 'Validations' do
-
     it { is_expected.to validate_inclusion_of(:admin).in_array([true, false]) }
 
     context 'new user' do

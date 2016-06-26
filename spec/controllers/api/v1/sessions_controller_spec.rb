@@ -32,6 +32,7 @@ RSpec.describe Api::V1::SessionsController, type: :controller do
         result = JSON.parse(response.body)
         expect(result['session']['token']).to be_present
         expect(result['session']['user_id']).to be_present
+        expect(result['session']['role']).to be_present
       end
     end
 
@@ -91,6 +92,23 @@ RSpec.describe Api::V1::SessionsController, type: :controller do
         post(:sign_off, session: invalid_session_credentials, format: 'json')
         expect(response).to have_http_status(:not_found)
       end
+    end
+  end
+
+  describe 'GET #status' do
+    context 'with valid attributes' do
+      render_views
+
+      it 'renders the server info' do
+        get(:status, format: 'json')
+
+        result = JSON.parse(response.body)
+        expect(result['status']).to eq('OK')
+        expect(result['role']).to eq('guest')
+      end
+    end
+
+    context 'with invalid attributes' do
     end
   end
 end

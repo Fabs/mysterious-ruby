@@ -38,6 +38,12 @@ module Api
         render json: @auth.errors, status: status
       end
 
+      api :POST, '/v1/sessions/status', 'Gets the session status'
+      api_version '1'
+      def status
+        render json: { status: 'OK', role: :guest }
+      end
+
       private
 
       def auth_service

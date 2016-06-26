@@ -13,5 +13,18 @@ RSpec.describe Api::V1::SessionsController, type: :routing do
       handler = 'api/v1/sessions#sign_off'
       expect(delete: path, format: 'json').to route_to(handler)
     end
+
+    describe 'route to status' do
+      let(:path) { 'v1/sessions/status' }
+      let(:handler) { 'api/v1/sessions#status' }
+
+      it 'routes to #status' do
+        expect(get: path, format: 'json').to route_to(handler)
+      end
+
+      it 'routes from /' do
+        expect(get: '/', format: 'json').to route_to(handler)
+      end
+    end
   end
 end
