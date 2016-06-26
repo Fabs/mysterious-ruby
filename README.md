@@ -13,8 +13,12 @@ rails. It would be nice to use rails 5.0, specially for `--api` in order
 to simplify the setup and remove `sprockets` and other unused middleware
 but we stick to the stable, and removed it manually when needed.
 
-- Devise vs Warden: 
-
+- Devise vs building myself with Warden: We could have used devise for
+authentication and cancan for checking permissions. But I decided to do
+it from scratch for two main reasons: (1) to show that I can do that
+from scratch myself, (2) to learn how to do it. On a real application 
+the pros and cons of adding a gem vs building from scratch should be 
+weighted, most certainly,  according to different criteria. 
 
 ## TODO
 - [x] Setup Rails App on Github (+postgres)
@@ -22,7 +26,7 @@ but we stick to the stable, and removed it manually when needed.
 
 - [x] It must be API (REST, JSON).
 - [x] It must be secured by basic auth.
-- [ ] It must contain User model with different roles (admin, user, guest).
+- [x] It must contain User model with different roles (admin, user, guest).
 - [ ] It must limit access to given part of API depending on User role.
     - [ ] Admin has access to everything.
     - [ ] User can read all, create all, but update and deleted only his records.
