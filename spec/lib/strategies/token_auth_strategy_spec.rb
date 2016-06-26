@@ -86,10 +86,10 @@ RSpec.describe TokenAuthStrategy do
   end
 
   describe '.valid?' do
-    it { expect(described_class.new(valid_token)).to be_valid}
+    it { expect(described_class.new(valid_token)).to be_valid }
 
-    it { expect(described_class.new(empty_token)).not_to be_valid}
-    it { expect(described_class.new(missing_token)).not_to be_valid}
-    it { expect(described_class.new(missing_user)).not_to be_valid}
+    it { expect(described_class.new(empty_token)).not_to be_valid }
+    it { expect(described_class.new(missing_token)).not_to be_valid }
+    it { expect(described_class.new(missing_user)).not_to be_valid }
   end
 end

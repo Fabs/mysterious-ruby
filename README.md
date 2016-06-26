@@ -25,9 +25,11 @@ allows to check for a token you already have, and also check your level
 of access ('guest', 'user', 'admin'). In a real world scenario it could
 also be used to check the server status, hence it is the root path.
 
-- Session and User for auth:
+- Session and User for auth: ...
 
-- Comments on specs:  
+- Comments on specs: ... 
+
+- No integration tests but: ...
 
 ## TODO
 - [x] Setup Rails App on Github (+postgres)
@@ -36,10 +38,10 @@ also be used to check the server status, hence it is the root path.
 - [x] It must be API (REST, JSON).
 - [x] It must be secured by basic auth.
 - [x] It must contain User model with different roles (admin, user, guest).
-- [ ] It must limit access to given part of API depending on User role.
+- [x] It must limit access to given part of API depending on User role.
+    - [ ] Guest has only read access.
     - [ ] Admin has access to everything.
     - [ ] User can read all, create all, but update and deleted only his records.
-    - [ ] Guest has only read access.
 - [ ] There should be at least 2 different models except User.
     - [ ] Those models should be in relation (1 to many).
 - [ ] Seeds file with at least one record of sample data for each model.

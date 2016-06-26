@@ -11,11 +11,7 @@ module Api
     end
 
     def role
-      return :forbidden unless warden
-
-      return :admin if warden.user(:admin)
-      return :user if wardenuser(:user)
-      return :guest if warden.user(:guest)
+      current_role
     end
 
     def warden
