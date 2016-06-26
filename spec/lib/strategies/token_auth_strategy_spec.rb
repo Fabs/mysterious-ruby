@@ -24,7 +24,7 @@ RSpec.describe TokenAuthStrategy do
   let(:user) { build(:user) }
   let(:admin) { build(:user, admin: true) }
 
-  describe '.authenticate!' do
+  describe '#authenticate!' do
     it 'with no token user is guest' do
       session = class_double('Session')
                 .as_stubbed_const(transfer_nested_constants: true)
@@ -85,7 +85,7 @@ RSpec.describe TokenAuthStrategy do
     end
   end
 
-  describe '.valid?' do
+  describe '#valid?' do
     it { expect(described_class.new(valid_token)).to be_valid }
 
     it { expect(described_class.new(empty_token)).not_to be_valid }
