@@ -1,9 +1,8 @@
 module Api
   module V1
     class ImagesController < Api::ApiController
-      before_action :set_image, only: [:show, :edit, :update, :destroy]
-
-      respond_to :html
+      before_action :set_image, only: [:show, :update, :destroy]
+      respond_to :json
 
       def index
         @images = Image.all
@@ -12,14 +11,6 @@ module Api
 
       def show
         respond_with(@image)
-      end
-
-      def new
-        @image = Image.new
-        respond_with(@image)
-      end
-
-      def edit
       end
 
       def create
@@ -39,6 +30,7 @@ module Api
       end
 
       private
+
       def set_image
         @image = Image.find(params[:id])
       end

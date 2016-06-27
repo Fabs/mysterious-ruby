@@ -1,25 +1,12 @@
 module Api
   module V1
     class ScoresController < ApplicationController
-      before_action :set_score, only: [:show, :edit, :update, :destroy]
-
-      respond_to :html
+      before_action :set_score, only: [:show, :update]
+      respond_to :json
 
       def index
         @scores = Score.all
         respond_with(@scores)
-      end
-
-      def show
-        respond_with(@score)
-      end
-
-      def new
-        @score = Score.new
-        respond_with(@score)
-      end
-
-      def edit
       end
 
       def create
@@ -33,12 +20,8 @@ module Api
         respond_with(@score)
       end
 
-      def destroy
-        @score.destroy
-        respond_with(@score)
-      end
-
       private
+
       def set_score
         @score = Score.find(params[:id])
       end
