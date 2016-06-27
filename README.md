@@ -13,6 +13,21 @@ You can run guard for `rspec` and `rubocop linting`.
 $ guard
 ```
 
+## A brief world
+
+In the end I wanted to do much much more. But I believe this result was
+more akin to life in the real world. I believe though one could see a lot
+of how I think and design, specially the auth part that I build from scratch
+thinking about what there is around, and past experience. 
+
+My vision was to build a ranking app for images, that would (oh dream!)
+calculate which other users are similar to you (it is not far, and the
+similarity matrix I planned to implement is not that hard). 
+
+It is in the end the API, of the MVP, that could fit a weekend's work.
+
+I hope you enjoy!
+
 ## Decision Notes
 A brief explanation for the decisions on this project.
 
@@ -33,20 +48,58 @@ allows to check for a token you already have, and also check your level
 of access ('guest', 'user', 'admin'). In a real world scenario it could
 also be used to check the server status, hence it is the root path.
 
-- Warden Comments: .. 
+- Warden Comments: By using warden, and warden scopes we ended up having
+for the admin 3 active scopes (guest: {}, user: the_user, admin: the_user).
+On one hand, for this assignment this is too much, on the other hand
+it is made in a way to support capabilities like the admin being able
+to have a different user on that scope, thus impersonating an user. 
 
-- Session and User for auth: ... (session duplication, triplication)
+- Sessions, Users and Auth: Why not put the token on the user. First, on
+a mobile world, an user can have many different sessions from different
+devices. Second the sessions could have information such as ip, browser and
+etc. Also we do not destroy the sessions unless the user signs out, that
+is to me for the moment a design flaw.
 
-- Comments on specs: ... 
+- TDD: I focused most on unit testing, and I did not refactored to dry
+the specs. For instance, at the beginning I did not have should-matchers
+(in retrospect a bad ide). I believe many specs (specially the permissions
+one) could benefit of custom matchers, and also many of the boilerplate
+necessary to mock dependencies could be better engineered. 
 
-- No integration tests but: ...
+- No Feature Branches: On a real world scenario there would be lots of
+feature branches, PRs and etc. I left showing that I can follow a rebase
+or merge workflow with features branch out of the scope of this project.
 
-- Test Refactoring: ...
+- Errors: I was expecting to build the front-end too. During that process
+I would take care of better error messages, and a more standardized error,
+also capturing exceptions instead of throwing 500 and returning then as
+better errors. 
 
-- No Feature Branches: ...
+## Work In Progress
 
-- Errors: ...
-- API Errors (document error): ...
+There are a couple apis and things I did not implemented but miss in the end
+
+- Scores for instance could have an index that shows all scores of an image.
+I planned inicially some sort of aggregations (average, total and etc) and 
+to send them along with the image. 
+
+- Queue processing: I really wanted to dispatch a job to validate the url
+and calculate something with the scores. Also I planned to use websockets
+to have some sort of feed or 'live' updates, probabbly play with ActionCable
+since I pretty much love Meteor.js :)
+
+- On scores again, right now an user can add more than one score to each
+Image, the initial was to not allow that.
+
+- I wanted to do the front-end part, but I did not had time. If you want
+you can see a work I made in react, on the weekends, couple months ago:
+
+SOURCE: https://github.com/Fabs/react-apps/board
+(It is the board folder inside this repository)
+
+RUNNING AT: http://placar.reativo.com/
+(Also if you sign up using facebook, there is an approval step I have to make, and then you will be able to add points to other users.)
+
 
 ## TODO
 - [x] Setup Rails App on Github (+postgres)
@@ -62,5 +115,5 @@ also be used to check the server status, hence it is the root path.
 - [x] There should be at least 2 different models except User.
     - [x] Those models should be in relation (1 to many).
 - [x] Deploy Heroku
-- [ ] Seeds file with at least one record of sample data for each model.
-- [ ] Finish this document
+- [x] Seeds file with at least one record of sample data for each model.
+- [x] Finish this document
