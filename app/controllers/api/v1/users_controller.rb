@@ -17,7 +17,7 @@ module Api
         if @user.save
           respond_with @user, status: :created
         else
-          render json: @user.errors, status: :not_found
+          render json: @user.errors, status: :unprocessable_entity
         end
       end
 

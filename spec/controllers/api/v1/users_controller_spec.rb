@@ -32,14 +32,17 @@ RSpec.describe Api::V1::UsersController, type: :controller do
 
       it 'returns the user id' do
         post(:sign_up, user: user, format: 'json')
-        expect(response.body['id']).to be_present
-        expect(response.body['admin']).to eq(false)
+
+        result = JSON.parse(response.body)
+        expect(result['user']['id']).to be_present
+        expect(result['user']['admin']).to eq(false)
       end
 
       it 'signs up admins' do
-        post(:sign_up, user: create(:user, admin: true), format: 'json')
+        post(:sign_up, user: user.merge(admin: true), format: 'json')
 
-        expect(response.body['admin']).to eq(true)
+        result = JSON.parse(response.body)
+        expect(result['user']['admin']).to eq(true)
       end
     end
 
@@ -57,9 +60,9 @@ RSpec.describe Api::V1::UsersController, type: :controller do
         end.not_to change(User, :count)
       end
 
-      it 'returns error any other case (404)' do
+      it 'returns error any other case :unprocessable_entity' do
         post(:sign_up, user: invalid_user, format: 'json')
-        expect(response).to have_http_status(:not_found)
+        expect(response).to have_http_status(:unprocessable_entity)
       end
     end
   end

@@ -194,7 +194,7 @@ RSpec.describe Api::V1::ImagesController, type: :controller do
       { id: image.to_param, image: valid_attributes, format: 'json' }
     end
     let(:post_content) { { image: valid_attributes, format: 'json' } }
-    let(:show_content) { {  id: image.to_param, format: 'json' } }
+    let(:show_content) { { id: image.to_param, format: 'json' } }
 
     context 'guest' do
       before(:each) do

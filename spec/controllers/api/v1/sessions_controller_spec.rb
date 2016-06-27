@@ -83,9 +83,9 @@ RSpec.describe Api::V1::SessionsController, type: :controller do
         end.to change(Session, :count).by(-1)
       end
 
-      it 'render a success message with (200)' do
+      it 'render a success message with :no_content' do
         post(:sign_off, session: session_credentials, format: 'json')
-        expect(response).to have_http_status(:ok)
+        expect(response).to have_http_status(:no_content)
       end
     end
 
