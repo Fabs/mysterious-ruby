@@ -3,6 +3,9 @@
 [![Code Climate](https://codeclimate.com/repos/5770ad2787e992006c002f20/badges/c8bef36bd9fe94cc209b/gpa.svg)](https://codeclimate.com/repos/5770ad2787e992006c002f20/feed)
 [![CI](https://circleci.com/gh/Fabs/mysterious-ruby.svg?style=shield&circle-token=7747d26213bdd9d2460d4322a886dcdb89ed7781)]()
 
+## API documentation
+http://mist-ruby.herokuapp.com/apipie/1.html
+
 ## Development
 
 You can run guard for `rspec` and `rubocop linting`. 
@@ -43,6 +46,7 @@ also be used to check the server status, hence it is the root path.
 - No Feature Branches: ...
 
 - Errors: ...
+- API Errors (document error): ...
 
 ## TODO
 - [x] Setup Rails App on Github (+postgres)
@@ -63,3 +67,4 @@ also be used to check the server status, hence it is the root path.
 ## NOTES
 - APIPIE: Document image show image_url param
 - Score API
+- publish docs as gh page

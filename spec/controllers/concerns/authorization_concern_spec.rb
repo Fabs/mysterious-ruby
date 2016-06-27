@@ -1,9 +1,9 @@
 require 'rails_helper'
 
-RSpec.describe AuthorizationConcern do
+RSpec.describe Concerns::AuthorizationConcern do
   before(:all) do
     class TestController < Api::ApiController
-      include AuthorizationConcern
+      include Concerns::AuthorizationConcern
     end
   end
 

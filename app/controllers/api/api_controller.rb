@@ -1,7 +1,7 @@
 module Api
   class ApiController < ActionController::API
-    include AuthenticationConcern
-    include AuthorizationConcern
+    include Concerns::AuthenticationConcern
+    include Concerns::AuthorizationConcern
 
     def signed_in?
       return true if current_user.present?
