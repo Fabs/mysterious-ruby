@@ -186,8 +186,9 @@ RSpec.describe Api::V1::ImagesController, type: :controller do
     let(:owner) { create(:user) }
     let(:image) { create(:image, user: owner) }
     let(:delete_content) { { id: image.to_param, format: 'json' } }
-    let(:put_content) { { id: image.to_param, image: valid_attributes,
-                          format: 'json' } }
+    let(:put_content) do
+      { id: image.to_param, image: valid_attributes, format: 'json' }
+    end
     let(:post_content) { { image: valid_attributes, format: 'json' } }
 
     context 'guest' do
@@ -254,7 +255,6 @@ RSpec.describe Api::V1::ImagesController, type: :controller do
     context 'owner' do
       before(:each) do
         warden = request.env['warden']
-        user = create(:user)
         allow(warden).to receive(:user).with(:guest).and_return({})
         allow(warden).to receive(:user).with(:user).and_return(owner)
         allow(warden).to receive(:user).with(:admin).and_return(nil)
