@@ -1,24 +1,32 @@
 require 'rails_helper'
 
 RSpec.describe TokenAuthStrategy do
+  let(:warden) do
+    warden = double
+    allow(warden).to receive(:set_user)
+    warden
+  end
+
   let(:valid_token) do
-    { 'HTTP_X_USER_TOKEN' => 'token', 'HTTP_X_USER_ID' => '1' }
+    { 'HTTP_X_USER_TOKEN' => 'token', 'HTTP_X_USER_ID' => '1',
+      'warden' => warden }
   end
 
   let(:invalid_token) do
-    { 'HTTP_X_USER_TOKEN' => 'invalid_token', 'HTTP_X_USER_ID' => '1' }
+    { 'HTTP_X_USER_TOKEN' => 'invalid_token', 'HTTP_X_USER_ID' => '1',
+      'warden' => warden }
   end
 
   let(:empty_token) do
-    {}
+    { 'warden' => warden }
   end
 
   let(:missing_user) do
-    { 'HTTP_X_USER_TOKEN' => 'token' }
+    { 'HTTP_X_USER_TOKEN' => 'token', 'warden' => warden }
   end
 
   let(:missing_token) do
-    { 'HTTP_X_USER_ID' => '1' }
+    { 'HTTP_X_USER_ID' => '1', 'warden' => warden }
   end
 
   let(:user) { build(:user) }
@@ -29,7 +37,7 @@ RSpec.describe TokenAuthStrategy do
       session = class_double('Session')
                 .as_stubbed_const(transfer_nested_constants: true)
 
-      strategy = described_class.new({})
+      strategy = described_class.new(empty_token)
 
       expect(session).not_to receive(:find_by)
       expect(strategy).to receive(:success!).with({}, scope: :guest)

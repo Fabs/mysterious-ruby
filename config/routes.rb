@@ -6,6 +6,7 @@ Rails.application.routes.draw do
       namespace :users do
         post 'sign_up'
       end
+
       namespace :sessions do
         post 'sign_in'
         delete 'sign_off'

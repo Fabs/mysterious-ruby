@@ -1,1 +1,2 @@
-json.extract! @image, :id, :url, :references, :created_at, :updated_at
+json.extract! @image, :id, :user_id
+json.image_url @image.url
