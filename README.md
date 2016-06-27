@@ -53,3 +53,4 @@ also be used to check the server status, hence it is the root path.
 
 ## NOTES
 - APIPIE: Document image show image_url param
+- Score API
