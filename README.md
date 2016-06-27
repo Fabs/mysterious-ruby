@@ -31,6 +31,10 @@ also be used to check the server status, hence it is the root path.
 
 - No integration tests but: ...
 
+- Test Refactoring: ...
+
+- No Feature Branches: ...
+
 ## TODO
 - [x] Setup Rails App on Github (+postgres)
 - [x] Setup Rspec
@@ -42,15 +46,10 @@ also be used to check the server status, hence it is the root path.
     - [x] Guest has only read access.
     - [x] Admin has access to everything.
     - [x] User can read all, create all, but update and deleted only his records.
-- [ ] There should be at least 2 different models except User.
-    - [ ] Those models should be in relation (1 to many).
+- [x] There should be at least 2 different models except User.
+    - [x] Those models should be in relation (1 to many).
 - [ ] Seeds file with at least one record of sample data for each model.
-
-## Extra
 - [ ] Deploy Heroku
 
-## Notes
-- Explain feature branches
-- Should I test action controller api (classes test)
-- Take a look on which middlewares should stay
-
+## NOTES
+- APIPIE: Document image show image_url param

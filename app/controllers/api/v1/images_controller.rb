@@ -24,6 +24,8 @@ module Api
       end
       api_version '1'
       def create
+        signed_in? or return
+
         @image = Image.new(image_params.merge(user: current_user))
         if @image.save
           render :show, status: :created
@@ -38,7 +40,8 @@ module Api
         param :url, String, 'The new image url'
       end
       def update
-        puts image_params
+        assert_ownership(@image) or return
+
         if @image.update(image_params)
           head :no_content
         else
@@ -49,6 +52,8 @@ module Api
       api :PATCH, '/v1/images/:id', 'Destroys the image with :id'
       api_version '1'
       def destroy
+        assert_ownership(@image) or return
+
         @image.destroy
         respond_with(:api, :v1, @image)
       end

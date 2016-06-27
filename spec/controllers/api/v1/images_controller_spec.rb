@@ -181,4 +181,136 @@ RSpec.describe Api::V1::ImagesController, type: :controller do
       expect(response).to have_http_status(:no_content)
     end
   end
+
+  describe 'permissions' do
+    let(:owner) { create(:user) }
+    let(:image) { create(:image, user: owner) }
+    let(:delete_content) { { id: image.to_param, format: 'json' } }
+    let(:put_content) { { id: image.to_param, image: valid_attributes,
+                          format: 'json' } }
+    let(:post_content) { { image: valid_attributes, format: 'json' } }
+
+    context 'guest' do
+      before(:each) do
+        warden = request.env['warden']
+        allow(warden).to receive(:user).with(:guest).and_return({})
+        allow(warden).to receive(:user).with(:user).and_return(nil)
+        allow(warden).to receive(:user).with(:admin).and_return(nil)
+      end
+
+      it 'can #index' do
+        get :index, { format: 'json' }, valid_session
+
+        expect(response).not_to have_http_status(:forbidden)
+      end
+
+      it 'cannot #create' do
+        post :create, post_content, valid_session
+        expect(response).to have_http_status(:forbidden)
+      end
+
+      it 'cannot #update' do
+        put :update, put_content, valid_session
+        expect(response).to have_http_status(:forbidden)
+      end
+
+      it 'cannot #destroy' do
+        delete :destroy, delete_content, valid_session
+        expect(response).to have_http_status(:forbidden)
+      end
+    end
+
+    context 'admin' do
+      before(:each) do
+        warden = request.env['warden']
+        user = create(:user, admin: true)
+        allow(warden).to receive(:user).with(:guest).and_return({})
+        allow(warden).to receive(:user).with(:user).and_return(user)
+        allow(warden).to receive(:user).with(:admin).and_return(user)
+      end
+
+      it 'can #index' do
+        get :index, { format: 'json' }, valid_session
+
+        expect(response).not_to have_http_status(:forbidden)
+      end
+
+      it 'can #create' do
+        post :create, post_content, valid_session
+        expect(response).not_to have_http_status(:forbidden)
+      end
+
+      it 'can #update' do
+        put :update, put_content, valid_session
+        expect(response).not_to have_http_status(:forbidden)
+      end
+
+      it 'can #destroy' do
+        delete :destroy, delete_content, valid_session
+        expect(response).not_to have_http_status(:forbidden)
+      end
+    end
+
+    context 'owner' do
+      before(:each) do
+        warden = request.env['warden']
+        user = create(:user)
+        allow(warden).to receive(:user).with(:guest).and_return({})
+        allow(warden).to receive(:user).with(:user).and_return(owner)
+        allow(warden).to receive(:user).with(:admin).and_return(nil)
+      end
+
+      it 'can #index' do
+        get :index, { format: 'json' }, valid_session
+
+        expect(response).not_to have_http_status(:forbidden)
+      end
+
+      it 'can #create' do
+        post :create, post_content, valid_session
+        expect(response).not_to have_http_status(:forbidden)
+      end
+
+      it 'can #update' do
+        put :update, put_content, valid_session
+        expect(response).not_to have_http_status(:forbidden)
+      end
+
+      it 'can #destroy' do
+        delete :destroy, delete_content, valid_session
+        expect(response).not_to have_http_status(:forbidden)
+      end
+    end
+
+    context 'user' do
+      before(:each) do
+        warden = request.env['warden']
+        user = create(:user)
+        allow(warden).to receive(:user).with(:guest).and_return({})
+        allow(warden).to receive(:user).with(:user).and_return(user)
+        allow(warden).to receive(:user).with(:admin).and_return(nil)
+      end
+
+      it 'can #index' do
+        get :index, { format: 'json' }, valid_session
+
+        expect(response).not_to have_http_status(:forbidden)
+      end
+
+      it 'can #create' do
+        post :create, post_content, valid_session
+        expect(response).not_to have_http_status(:forbidden)
+      end
+
+      it 'cannot #update' do
+        put :update, put_content, valid_session
+        expect(response).to have_http_status(:forbidden)
+      end
+
+      it 'cannot #destroy' do
+        delete :destroy, delete_content, valid_session
+        expect(response).to have_http_status(:forbidden)
+      end
+    end
+  end
 end
