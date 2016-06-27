@@ -56,12 +56,17 @@ RSpec.describe Api::V1::ImagesController, type: :controller do
       end
 
       it 'returns status :created' do
-        post :create, { image: valid_attributes, format: 'json' }, valid_session
+        post :create,
+             { image: valid_attributes, format: 'json' },
+             valid_session
+
         expect(response).to have_http_status(:created)
       end
 
       it 'returns the created image' do
-        post :create, { image: valid_attributes, format: 'json' }, valid_session
+        post :create,
+             { image: valid_attributes, format: 'json' },
+             valid_session
 
         result = JSON.parse(response.body)
         expect(result['image_url']).to be_present
@@ -84,12 +89,13 @@ RSpec.describe Api::V1::ImagesController, type: :controller do
         expect(response).to have_http_status(:unprocessable_entity)
       end
 
-      it 'redirects to the created image' do
+      it 'shows an error' do
         post :create, { image: invalid_attributes, format: 'json' },
              valid_session
 
         result = JSON.parse(response.body)
         expect(result['errors']).to be_present
+        expect(result['errors']).not_to be_empty
       end
     end
   end
@@ -153,8 +159,6 @@ RSpec.describe Api::V1::ImagesController, type: :controller do
       end
 
       it 'have status :unprocessable_entity' do
-        pending 'The params filter makes it {},
-                 that does nothing and returns 204'
         image = create(:image)
         put :update,
             { id: image.to_param, image: new_invalid_attributes,

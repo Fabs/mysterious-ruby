@@ -42,7 +42,7 @@ module Api
       def update
         assert_ownership(@image) || return
 
-        if @image.update(image_params)
+        if image_params.any? && @image.update(image_params)
           head :no_content
         else
           render json: { errors: @image.errors }, status: :unprocessable_entity

@@ -30,7 +30,9 @@ allows to check for a token you already have, and also check your level
 of access ('guest', 'user', 'admin'). In a real world scenario it could
 also be used to check the server status, hence it is the root path.
 
-- Session and User for auth: ...
+- Warden Comments: .. 
+
+- Session and User for auth: ... (session duplication, triplication)
 
 - Comments on specs: ... 
 
@@ -39,6 +41,8 @@ also be used to check the server status, hence it is the root path.
 - Test Refactoring: ...
 
 - No Feature Branches: ...
+
+- Errors: ...
 
 ## TODO
 - [x] Setup Rails App on Github (+postgres)
@@ -54,7 +58,7 @@ also be used to check the server status, hence it is the root path.
 - [x] There should be at least 2 different models except User.
     - [x] Those models should be in relation (1 to many).
 - [ ] Seeds file with at least one record of sample data for each model.
-- [ ] Deploy Heroku
+- [x] Deploy Heroku
 
 ## NOTES
 - APIPIE: Document image show image_url param

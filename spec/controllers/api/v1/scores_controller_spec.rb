@@ -1,53 +1,123 @@
 require 'rails_helper'
 
 RSpec.describe Api::V1::ScoresController, type: :controller do
+  before(:each) do
+    allow(request.env['warden']).to receive(:authenticate!)
+    allow(request.env['warden']).to receive(:user).and_return(user)
+  end
+
+  let(:image) { create(:image) }
+  let(:user) { create(:user) }
+
   let(:valid_attributes) do
-    skip('Add a hash of attributes valid for your model')
+    { value: 1 }
   end
 
   let(:invalid_attributes) do
-    skip('Add a hash of attributes invalid for your model')
+    { amount: 100 }
   end
 
   let(:valid_session) { {} }
 
-  describe 'GET #index' do
-    it 'assigns all scores as @scores' do
-      score = Score.create! valid_attributes
-      get :index, {}, valid_session
-      expect(assigns(:scores)).to eq([score])
-    end
-  end
-
   describe 'POST #create' do
     context 'with valid params' do
+      render_views
+
       it 'creates a new Score' do
         expect do
-          post :create, { score: valid_attributes }, valid_session
+          post :create,
+               { image_id: image.id, score: valid_attributes, format: 'json' },
+               valid_session
         end.to change(Score, :count).by(1)
       end
 
       it 'assigns a newly created score as @score' do
-        post :create, { score: valid_attributes }, valid_session
+        post :create,
+             { image_id: image.id, score: valid_attributes, format: 'json' },
+             valid_session
+
         expect(assigns(:score)).to be_a(Score)
         expect(assigns(:score)).to be_persisted
       end
 
-      it 'redirects to the created score' do
-        post :create, { score: valid_attributes }, valid_session
-        expect(response).to redirect_to(Score.last)
+      it 'returns status :created' do
+        post :create,
+             { image_id: image.id, score: valid_attributes, format: 'json' },
+             valid_session
+
+        expect(response).to have_http_status(:created)
+      end
+
+      it 'returns the created score' do
+        post :create,
+             { image_id: image.id, score: valid_attributes, format: 'json' },
+             valid_session
+
+        result = JSON.parse(response.body)
+        expect(result['value']).to be_present
+        expect(result['id']).to be_present
       end
     end
 
     context 'with invalid params' do
-      it 'assigns a newly created but unsaved score as @score' do
-        post :create, { score: invalid_attributes }, valid_session
-        expect(assigns(:score)).to be_a_new(Score)
+      render_views
+
+      it 'does not create new score' do
+        expect do
+          post :create,
+               { image_id: image.id, score: invalid_attributes,
+                 format: 'json' },
+               valid_session
+        end.not_to change(Score, :count)
       end
 
-      it 're-renders the :new template' do
-        post :create, { score: invalid_attributes }, valid_session
-        expect(response).to render_template('new')
+      it 'returns status :unprocessable_entity' do
+        post :create,
+             { image_id: image.id, score: invalid_attributes, format: 'json' },
+             valid_session
+
+        expect(response).to have_http_status(:unprocessable_entity)
+      end
+
+      it 'shows an error' do
+        post :create,
+             { image_id: image.id, score: invalid_attributes, format: 'json' },
+             valid_session
+
+        result = JSON.parse(response.body)
+        expect(result['errors']).to be_present
+        expect(result['errors']).not_to be_empty
+      end
+    end
+
+    context 'with invalid image' do
+      render_views
+
+      it 'does not create new score' do
+        expect do
+          post :create,
+               { image_id: 0, score: invalid_attributes,
+                 format: 'json' },
+               valid_session
+        end.not_to change(Score, :count)
+      end
+
+      it 'returns status :unprocessable_entity' do
+        post :create,
+             { image_id: 0, score: invalid_attributes, format: 'json' },
+             valid_session
+
+        expect(response).to have_http_status(:not_found)
+      end
+
+      it 'shows an error' do
+        post :create,
+             { image_id: 0, score: invalid_attributes, format: 'json' },
+             valid_session
+
+        result = JSON.parse(response.body)
+        expect(result['errors']).to be_present
+        expect(result['errors']).not_to be_empty
       end
     end
   end
@@ -55,19 +125,19 @@ RSpec.describe Api::V1::ScoresController, type: :controller do
   describe 'PUT #update' do
     context 'with valid params' do
       let(:new_attributes) do
-        skip('Add a hash of attributes valid for your model')
       end
 
       it 'updates the requested score' do
+        pending
         score = Score.create! valid_attributes
         put :update,
             { id: score.to_param, score: new_attributes },
             valid_session
         score.reload
-        skip('Add assertions for updated state')
       end
 
       it 'assigns the requested score as @score' do
+        pending
         score = Score.create! valid_attributes
         put :update,
             { id: score.to_param, score: valid_attributes },
@@ -76,6 +146,7 @@ RSpec.describe Api::V1::ScoresController, type: :controller do
       end
 
       it 'redirects to the score' do
+        pending
         score = Score.create! valid_attributes
         put :update,
             { id: score.to_param, score: valid_attributes },
@@ -86,6 +157,7 @@ RSpec.describe Api::V1::ScoresController, type: :controller do
 
     context 'with invalid params' do
       it 'assigns the score as @score' do
+        pending
         score = Score.create! valid_attributes
         put :update,
             { id: score.to_param, score: invalid_attributes },
@@ -94,6 +166,7 @@ RSpec.describe Api::V1::ScoresController, type: :controller do
       end
 
       it 're-renders the :edit template' do
+        pending
         score = Score.create! valid_attributes
         put :update,
             { id: score.to_param, score: invalid_attributes },

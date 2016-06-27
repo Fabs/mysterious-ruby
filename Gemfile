@@ -28,7 +28,7 @@ group :development, :test do
   gem 'guard-rubocop'
 
   gem 'byebug'
-  gem "codeclimate-test-reporter", require: nil
+  gem 'codeclimate-test-reporter', require: nil
 end
 
 group :development do
