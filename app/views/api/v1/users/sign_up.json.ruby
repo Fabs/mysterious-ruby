@@ -1,5 +1,6 @@
 {
   user: {
-    id: @user.id
+    id: @user.id,
+    admin: @user.admin
   }
 }.to_json

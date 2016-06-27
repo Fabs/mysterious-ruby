@@ -1,7 +1,7 @@
 module Api
   module V1
     class ImagesController < Api::ApiController
-      prepend_before_action :authenticate!, except: [:index]
+      prepend_before_action :authenticate!, except: [:index, :show]
       before_action :set_image, only: [:show, :update, :destroy]
       respond_to :json
 

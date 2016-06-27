@@ -33,6 +33,13 @@ RSpec.describe Api::V1::UsersController, type: :controller do
       it 'returns the user id' do
         post(:sign_up, user: user, format: 'json')
         expect(response.body['id']).to be_present
+        expect(response.body['admin']).to eq(false)
+      end
+
+      it 'signs up admins' do
+        post(:sign_up, user: create(:user, admin: true), format: 'json')
+
+        expect(response.body['admin']).to eq(true)
       end
     end
 

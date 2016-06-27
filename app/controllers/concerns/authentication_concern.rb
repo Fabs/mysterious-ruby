@@ -10,6 +10,10 @@ module Concerns
       warden.authenticate!
     end
 
+    def authenticate
+      warden.authenticate
+    end
+
     def current_user
       roles_but_guest = roles_in_priority[0...-1]
       roles_but_guest.each do |role|
@@ -24,7 +28,7 @@ module Concerns
         return role if warden.user(role)
       end
 
-      nil
+      :guest
     end
 
     private

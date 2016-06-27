@@ -4,7 +4,7 @@
 [![CI](https://circleci.com/gh/Fabs/mysterious-ruby.svg?style=shield&circle-token=7747d26213bdd9d2460d4322a886dcdb89ed7781)]()
 
 ## API documentation
-http://mist-ruby.herokuapp.com/apipie/1.html
+https://mist-api.herokuapp.com/apipie/1.html
 
 ## Development
 
@@ -61,10 +61,6 @@ also be used to check the server status, hence it is the root path.
     - [x] User can read all, create all, but update and deleted only his records.
 - [x] There should be at least 2 different models except User.
     - [x] Those models should be in relation (1 to many).
-- [ ] Seeds file with at least one record of sample data for each model.
 - [x] Deploy Heroku
-
-## NOTES
-- APIPIE: Document image show image_url param
-- Score API
-- publish docs as gh page
+- [ ] Seeds file with at least one record of sample data for each model.
+- [ ] Finish this document

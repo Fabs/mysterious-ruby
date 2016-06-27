@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Api::V1::SessionsController, type: :controller do
   before(:each) do
-    allow(request.env['warden']).to receive(:authenticate!)
+    allow(request.env['warden']).to receive(:authenticate)
     allow(request.env['warden']).to receive(:user).with(:guest).and_return({})
     allow(request.env['warden']).to receive(:user).with(:user).and_return(nil)
     allow(request.env['warden']).to receive(:user).with(:admin).and_return(nil)

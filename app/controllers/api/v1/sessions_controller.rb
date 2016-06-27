@@ -1,6 +1,7 @@
 module Api
   module V1
     class SessionsController < Api::ApiController
+      prepend_before_action :authenticate
       before_filter :auth_service
       respond_to :json
 
@@ -34,9 +35,11 @@ module Api
       end
       def sign_off
         has_logged_out = @auth.sign_off(sign_off_params)
-        status = has_logged_out ? :ok : :not_found
-
-        render json: @auth.errors, status: status
+        if has_logged_out
+          head :no_content
+        else
+          render json: @auth.errors, status: :not_found
+        end
       end
 
       api :POST, '/v1/sessions/status', 'Gets the session status'

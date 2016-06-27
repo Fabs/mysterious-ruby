@@ -65,6 +65,6 @@ RSpec.describe Concerns::AuthenticationConcern do
     end
 
     it { expect(@test_controller.current_user).to eq(nil) }
-    it { expect(@test_controller.current_role).to eq(nil) }
+    it { expect(@test_controller.current_role).to eq(:guest) }
   end
 end

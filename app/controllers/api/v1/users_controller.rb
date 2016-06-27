@@ -10,6 +10,7 @@ module Api
         param :password, String, 'Must have 8 to 72 characters', required: true
         param :password_confirmation, String,
               'Must match the password field', required: true
+        param :admin, :bool, 'True if the user is an admin'
       end
       def sign_up
         @user = User.new(sign_up_parameters)
@@ -25,7 +26,8 @@ module Api
       def sign_up_parameters
         params.require(:user).permit(:username,
                                      :password,
-                                     :password_confirmation)
+                                     :password_confirmation,
+                                     :admin)
       end
     end
   end

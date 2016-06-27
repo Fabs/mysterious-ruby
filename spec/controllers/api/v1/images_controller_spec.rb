@@ -194,6 +194,7 @@ RSpec.describe Api::V1::ImagesController, type: :controller do
       { id: image.to_param, image: valid_attributes, format: 'json' }
     end
     let(:post_content) { { image: valid_attributes, format: 'json' } }
+    let(:show_content) { {  id: image.to_param, format: 'json' } }
 
     context 'guest' do
       before(:each) do
@@ -205,6 +206,12 @@ RSpec.describe Api::V1::ImagesController, type: :controller do
 
       it 'can #index' do
         get :index, { format: 'json' }, valid_session
+
+        expect(response).not_to have_http_status(:forbidden)
+      end
+
+      it 'can #show' do
+        get :show, show_content, valid_session
 
         expect(response).not_to have_http_status(:forbidden)
       end
@@ -240,6 +247,12 @@ RSpec.describe Api::V1::ImagesController, type: :controller do
         expect(response).not_to have_http_status(:forbidden)
       end
 
+      it 'can #show' do
+        get :show, show_content, valid_session
+
+        expect(response).not_to have_http_status(:forbidden)
+      end
+
       it 'can #create' do
         post :create, post_content, valid_session
         expect(response).not_to have_http_status(:forbidden)
@@ -266,6 +279,12 @@ RSpec.describe Api::V1::ImagesController, type: :controller do
 
       it 'can #index' do
         get :index, { format: 'json' }, valid_session
+
+        expect(response).not_to have_http_status(:forbidden)
+      end
+
+      it 'can #show' do
+        get :show, show_content, valid_session
 
         expect(response).not_to have_http_status(:forbidden)
       end
@@ -297,6 +316,12 @@ RSpec.describe Api::V1::ImagesController, type: :controller do
 
       it 'can #index' do
         get :index, { format: 'json' }, valid_session
+
+        expect(response).not_to have_http_status(:forbidden)
+      end
+
+      it 'can #show' do
+        get :show, show_content, valid_session
 
         expect(response).not_to have_http_status(:forbidden)
       end
