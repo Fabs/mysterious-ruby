@@ -8,6 +8,7 @@ Bundler.require(*Rails.groups)
 
 module Api
   class Application < Rails::Application
+    config.assets.enabled = false
     # Use the responders controller from the responders gem
     config.app_generators.scaffold_controller :responders_controller
 
